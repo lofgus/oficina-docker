@@ -3,9 +3,24 @@ services:
   aula2:
     image: oficina-docker:aula2-volumes
     build: .
+    ports:
+    - 5010:5000
     volumes:
+     - .:/usr/src
      - aula2-logs:/tmp
     container_name: aula-2
+  nginx:
+    image: nginx:alpine
+    ports: 
+    - 8080:8080
+  db:
+    image: postgres:9.6
+    ports:
+    - 5432:5432
+
+  cache:
+    image: memcached
 
 volumes:
   aula2-logs: 
+    external: true
